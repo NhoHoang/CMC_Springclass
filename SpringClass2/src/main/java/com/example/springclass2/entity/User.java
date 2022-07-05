@@ -33,6 +33,7 @@ public class User implements Serializable {
     private Gender gender;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "department_id")
     private Department department;
     @ManyToMany
@@ -53,6 +54,8 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", department=" + department +
                 ", permissions=" + permissions +
                 '}';
     }
