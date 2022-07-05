@@ -26,7 +26,7 @@ public class UserController {
 
     @Autowired
     private PermissionService permissionService;
-    
+    // check
 
     @GetMapping()
     public CustomResponse<Object> getAllUser(@RequestHeader(name="permissionName", required = false) String permissionName) {
