@@ -32,6 +32,9 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
     @ManyToMany
     @JoinTable(
             name = "User_Permission",

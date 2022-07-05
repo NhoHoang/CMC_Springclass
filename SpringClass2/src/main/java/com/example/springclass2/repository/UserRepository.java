@@ -2,6 +2,8 @@ package com.example.springclass2.repository;
 
 import com.example.springclass2.entity.Permission;
 import com.example.springclass2.entity.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
-    ArrayList<User> findByPermissions(Permission permissionName);
+    ArrayList<User> findByPermissions(Permission permissionName, Pageable pageable);
 
     User getUserByName(String name);
 
