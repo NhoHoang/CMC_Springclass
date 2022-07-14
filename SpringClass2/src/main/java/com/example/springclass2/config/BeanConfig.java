@@ -25,4 +25,10 @@ public class BeanConfig {
         return new UserServiceImpl();
     }
 
+    @Bean
+    @Profile("h2")
+    public UserService getBeanH2(){
+        log.info("This is bean for h2");
+        return new UserServiceImpl();
+    }
 }

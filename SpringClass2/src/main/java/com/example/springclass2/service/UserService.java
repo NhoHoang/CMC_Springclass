@@ -6,7 +6,9 @@ import com.example.springclass2.dto.UserUpdateDTO;
 import com.example.springclass2.entity.Permission;
 import com.example.springclass2.entity.User;
 import com.example.springclass2.exception.BussinessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,4 +20,6 @@ public interface UserService {
     CustomResponse<Object>updateUser(UserUpdateDTO dto) throws BussinessException;
 
     CustomResponse<Object> deleteUser(int userId) throws BussinessException;
+
+    Page<User> getAllUser2(Pageable pageable);
 }

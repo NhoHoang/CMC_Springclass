@@ -9,6 +9,7 @@ import com.example.springclass2.entity.User;
 import com.example.springclass2.exception.BussinessException;
 import com.example.springclass2.service.PermissionService;
 import com.example.springclass2.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,14 +22,11 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/v1/user")
-
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService service;
 
-    @Autowired
-    private PermissionService permissionService;
-    // check
+    private final UserService service;
+    private final PermissionService permissionService;
 
     @GetMapping()
     public CustomResponse<Object> getAllUser(@RequestHeader(name = "x-permissionName", required = false) String permissionName,
@@ -36,7 +34,13 @@ public class UserController {
         Permission response = permissionService.getAllPermissionFilter(permissionName);
 
         List<User> entities = service.getAllUser(response, pageable);
-        Page<User> userPage =  new PageImpl<User>(entities, pageable, entities.size());
+        Page<User> userPage = new PageImpl<User>(entities, pageable, entities.size());
+        return new CustomResponse<>(HttpStatusConstants.SUCCESS_CODE, HttpStatusConstants.SUCCESS_MESSAGE, userPage);
+    }
+
+    @GetMapping(value = "/h2")
+    public CustomResponse<Object> getAllUser2 (Pageable pageable){
+        Page<User> userPage = service.getAllUser2(pageable);
         return new CustomResponse<>(HttpStatusConstants.SUCCESS_CODE, HttpStatusConstants.SUCCESS_MESSAGE, userPage);
     }
 

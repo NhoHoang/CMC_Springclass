@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+//@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -37,8 +39,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserPermissionRepository userPermissionRepository;
-    @Value("${project.variable}")
-    private String projectVariable;
+//    @Value("${project.variable}")
+//    private String projectVariable;
     @Autowired
     private PropertiesConfig propertiesConfig;
     @Autowired
@@ -46,12 +48,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUser(Permission permissionName, Pageable pageable) {
-        log.info("Read properties from application.properties method 1: {}", projectVariable);
-        log.info("Read properties from application.properties method 2: {}", propertiesConfig.getVariable());
-        log.info("Read environment variables : {}", env.getActiveProfiles());
-        log.info("Read environment variables: {}", env.getProperty("JAVA_HOME"));
-        log.info("Read environment variables: {}", env.getProperty("project.variable"));
-        return permissionName == null ? repository.findAll(pageable).getContent() : repository.findByPermissions(permissionName, pageable);
+//        log.info("Read properties from application.properties method 1: {}", projectVariable);
+//        log.info("Read properties from application.properties method 2: {}", propertiesConfig.getVariable());
+//        log.info("Read environment variables : {}", env.getActiveProfiles());
+//        log.info("Read environment variables OS : {}", env.getProperty("JAVA_HOME"));
+//        log.info("Read environment variables: {}", env.getProperty("project.variable"));
+        return permissionName == null ? repository.findAll(pageable).getContent() :
+                repository.findByPermissions(permissionName, pageable);
     }
 
 
@@ -141,5 +144,10 @@ public class UserServiceImpl implements UserService {
             return CustomResponse.ok("Delete success");
         }
 
+    }
+
+    @Override
+    public Page<User> getAllUser2(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
