@@ -1,5 +1,6 @@
 package com.example.springclass2.entity;
 
+import com.example.springclass2.converter.GenderEnumConverter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "User")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,7 +30,7 @@ public class User implements Serializable {
     private String name;
 
     @Column(name = "gender")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = GenderEnumConverter.class)
     private Gender gender;
 
     @ManyToOne
